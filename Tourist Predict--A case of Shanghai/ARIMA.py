@@ -2,11 +2,11 @@ from statsmodels import *
 import numpy as np
 import pandas as pd
 import itertools
-from matplotlib import *
+from matplotlib import pyplot 
 import statsmodels.api as sm
 
 data = pd.read_excel(r'Data/')#读取excel数据
-
+tourist_Number = data['旅游人数']
 
 #数据平稳性检验，确定模型的D取值
 def stationarity_Test(data):
@@ -14,6 +14,10 @@ def stationarity_Test(data):
     pyplot.plot(data, label = '原始数据', colors = 'black')
     pyplot.plot(data_diff, label = '一阶差分', colors = 'red')
     pyplot.legend()
+    
+    pyplot.rcParams['savefig.dpi'] = 300 #图片像素
+    pyplot.rcParams['figure.dpi'] = 300 #分辨率
+    pyplot.savefig(r'Pictures/%s'%() + '.png')
     pyplot.show()
 
 
