@@ -14,10 +14,9 @@ def stationarity_Test(data):
     pyplot.plot(data, label = '原始数据', colors = 'black')
     pyplot.plot(data_diff, label = '一阶差分', colors = 'red')
     pyplot.legend()
-    
     pyplot.rcParams['savefig.dpi'] = 300 #图片像素
     pyplot.rcParams['figure.dpi'] = 300 #分辨率
-    pyplot.savefig(r'Pictures/%s'%() + '.png')
+    pyplot.savefig(r'Pictures/%s'%(data) + '.png')
     pyplot.show()
 
 
