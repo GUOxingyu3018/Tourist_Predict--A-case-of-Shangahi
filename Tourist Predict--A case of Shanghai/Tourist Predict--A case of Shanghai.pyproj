@@ -37,6 +37,9 @@
     <Folder Include="Data\" />
     <Folder Include="Pictures\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\上海旅游人数--上海旅游（百度指数-区分来源）.xlsx" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in
