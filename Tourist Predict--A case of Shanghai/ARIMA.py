@@ -14,18 +14,20 @@ from tsfresh.feature_extraction import ComprehensiveFCParameters
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.cross_validation import train_test_split
 from sklearn.metrics import classification_report
+from datetime import datetime
 
+data = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx', parse_dates=[0],index_col='时间')#读取excel数据
+x = pd.read_excel(r'Data/自变量.xlsx', parse_dates=[0],index_col='时间')
+data.index =  pd.to_datetime(data.index)
+x.index = pd.to_datetime(x.index)
 
-data = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx')#读取excel数据
-x = pd.read_excel(r'Data/自变量.xlsx')
 tourist_Number = data['旅游人数']
 y_Train = tourist_Number[:85] #模型训练Y
 y_Test = tourist_Number[85:] #检测Y
 
 x_Train = x[:85]
 
-
-
+print(data.head())
 
 #绘图显示中文及设置分辨率
 plt.rcParams['font.sans-serif']=['SimHei']
@@ -131,10 +133,15 @@ def decide_PQ(y_Train,x_Train):
     plt.savefig(r'Pictures/BIC.png')
     plt.show()
 
+
+#构建ARIMA(0,0,1)预测模型
 def pred():
     arima001 = sm.tsa.SARIMAX(y_Train,x_Train, order=(0,0,1))
-    model = arima401.fit()
-    print(model.summary())
+    model = arima001.fit()
+    
+    pred = model.predict()
+
+    print(pred)
 
 #时间序列聚类，减少共线性
 def linear_Clustering():
@@ -151,4 +158,4 @@ if __name__ == '__main__':
     #scatter_diagram(tourist_Number)
     #decide_PQ(y_Train,x_Train)  
     #最终确定ARIMA（0，0，1）
-
+    pred()
