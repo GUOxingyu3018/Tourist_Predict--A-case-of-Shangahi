@@ -16,18 +16,20 @@ from sklearn.cross_validation import train_test_split
 from sklearn.metrics import classification_report
 from datetime import datetime
 
-data = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx', parse_dates=[0],index_col='时间')#读取excel数据
-x = pd.read_excel(r'Data/自变量.xlsx', parse_dates=[0],index_col='时间')
-data.index =  pd.to_datetime(data.index)
-x.index = pd.to_datetime(x.index)
+data = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx')#读取excel数据
+x = pd.read_excel(r'Data/自变量.xlsx')
+
 
 tourist_Number = data['旅游人数']
-y_Train = tourist_Number[:85] #模型训练Y
-y_Test = tourist_Number[85:] #检测Y
 
+y_Train = tourist_Number[:85] #模型训练Y
 x_Train = x[:85]
 
-print(data.head())
+y_Test = tourist_Number[85:] #检测Y
+
+
+
+
 
 #绘图显示中文及设置分辨率
 plt.rcParams['font.sans-serif']=['SimHei']
@@ -52,14 +54,20 @@ def ACF_PACF(data):
     fig = plt.figure(figsize=(12,8))
 
     ax1 = fig.add_subplot(211)
-    fig = sm.graphics.tsa.plot_acf(data, lags=20,ax=ax1)
+    fig = sm.graphics.tsa.plot_acf(data, lags=12,ax=ax1)
     ax1.xaxis.set_ticks_position('bottom')
+    plt.xticks(fontsize = 20 )
+    plt.yticks(fontsize = 20 )
+
     fig.tight_layout();
 
     ax2 = fig.add_subplot(212)
-    fig = sm.graphics.tsa.plot_pacf(data, lags=20, ax=ax2)
+    fig = sm.graphics.tsa.plot_pacf(data, lags=12, ax=ax2)
     ax2.xaxis.set_ticks_position('bottom')
     fig.tight_layout();
+    plt.xticks(fontsize = 20 )
+    plt.yticks(fontsize = 20 )
+
     plt.savefig(r'Pictures/ACF_PACF.png')
     plt.show()
 
@@ -91,7 +99,7 @@ def scatter_diagram(data):
 
 #确定模型的P,Q最佳取值
 def decide_PQ(y_Train,x_Train):   
-    arima401 = sm.tsa.SARIMAX(y_Train,x_Train, order=(4,0,1))
+    arima401 = sm.tsa.SARIMAX(endog=y_Train,exog = x_Train, order=(4,0,1))
     model_results = arima401.fit()
 
     p_min = 0
@@ -112,7 +120,7 @@ def decide_PQ(y_Train,x_Train):
             continue
     
         try:
-            model = sm.tsa.SARIMAX(y_Train,x_Train, order=(p, d, q),
+            model = sm.tsa.SARIMAX(endog=y_Train,exog=x_Train, order=(p, d, q),
                                #enforce_stationarity=False,
                                #enforce_invertibility=False,
                               )
@@ -127,9 +135,12 @@ def decide_PQ(y_Train,x_Train):
                  mask=results_bic.isnull(),
                  ax=ax,
                  annot=True,
-                 fmt='.2f',
+                 fmt='.2f', 
+                 annot_kws = {'size':20}
                  );
-    ax.set_title('BIC');
+    #ax.set_title('BIC');
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
     plt.savefig(r'Pictures/BIC.png')
     plt.show()
 
@@ -154,8 +165,8 @@ def linear_Clustering():
 
 if __name__ == '__main__':
     #stationarity_Test(tourist_Number)
-    #ACF_PACF(tourist_Number)
+    ACF_PACF(tourist_Number)
     #scatter_diagram(tourist_Number)
     #decide_PQ(y_Train,x_Train)  
     #最终确定ARIMA（0，0，1）
-    pred()
+    
