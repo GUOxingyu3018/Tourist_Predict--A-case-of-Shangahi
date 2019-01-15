@@ -17,7 +17,9 @@ from sklearn.metrics import classification_report
 from datetime import datetime
 
 data = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx')#读取excel数据
-x = pd.read_excel(r'Data/自变量.xlsx')
+x = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx',sheetname = '自变量')
+
+
 
 
 tourist_Number = data['旅游人数']
@@ -154,19 +156,14 @@ def pred():
 
     print(pred)
 
-#时间序列聚类，减少共线性
-def linear_Clustering():
-    extraction_settings = ComprehensiveFCParameters()
-    X = extract_features(x, 
-                         column_id='id',
-                        column_sort='time', 
-                        default_fc_parameters=extract_settings, 
-                        impute_function=impute)
+
+
+
 
 if __name__ == '__main__':
     #stationarity_Test(tourist_Number)
-    ACF_PACF(tourist_Number)
+    #ACF_PACF(tourist_Number)
     #scatter_diagram(tourist_Number)
     #decide_PQ(y_Train,x_Train)  
     #最终确定ARIMA（0，0，1）
-    
+ 
