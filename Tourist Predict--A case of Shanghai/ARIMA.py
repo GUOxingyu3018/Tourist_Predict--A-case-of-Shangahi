@@ -16,22 +16,6 @@ from sklearn.cross_validation import train_test_split
 from sklearn.metrics import classification_report
 from datetime import datetime
 
-data = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx')#读取excel数据
-x = pd.read_excel(r'Data/上海旅游人数--上海旅游（百度指数-区分来源）.xlsx',sheetname = '自变量')
-
-
-
-
-tourist_Number = data['旅游人数']
-
-y_Train = tourist_Number[:85] #模型训练Y
-x_Train = x[:85]
-
-y_Test = tourist_Number[85:] #检测Y
-
-
-
-
 
 #绘图显示中文及设置分辨率
 plt.rcParams['font.sans-serif']=['SimHei']
@@ -152,18 +136,27 @@ def pred():
     arima001 = sm.tsa.SARIMAX(y_Train,x_Train, order=(0,0,1))
     model = arima001.fit()
     
-    pred = model.predict()
+    print(model.summary())
 
-    print(pred)
 
 
 
 
 
 if __name__ == '__main__':
+    data = pd.read_excel(r'Data/建模数据.xlsx',sheet_name = '优化模型')#读取excel数据
+    x = pd.read_excel(r'Data/建模数据.xlsx',sheet_name = 'Sheet1')
+
+    tourist_Number = data['TouristNumber']
+
+
+    y_Train = tourist_Number[:85] #模型训练Y
+    x_Train = x[:85]
+
+    y_Test = tourist_Number[85:] #检测Y
     #stationarity_Test(tourist_Number)
     #ACF_PACF(tourist_Number)
     #scatter_diagram(tourist_Number)
     #decide_PQ(y_Train,x_Train)  
     #最终确定ARIMA（0，0，1）
- 
+
