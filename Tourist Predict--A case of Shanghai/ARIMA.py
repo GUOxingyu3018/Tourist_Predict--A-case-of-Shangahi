@@ -15,7 +15,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.cross_validation import train_test_split
 from sklearn.metrics import classification_report
 from datetime import datetime
-
+from sklearn.metrics import r2_score
 
 #绘图显示中文及设置分辨率
 plt.rcParams['font.sans-serif']=['SimHei']
@@ -138,9 +138,10 @@ def pred():
     
     print(model.summary())
 
-
-
-
+#r2判断模型优劣
+def R2(real,predicted):
+    score = r2_score(real,predicted)
+    print(score)
 
 
 if __name__ == '__main__':
@@ -154,9 +155,15 @@ if __name__ == '__main__':
     x_Train = x[:85]
 
     y_Test = tourist_Number[85:] #检测Y
+
+    y_real = [873888,862523,1389101,2246964,2340518,1798207,1441543,1458499,1495691,1920051]
+    y_Origin_model = [1380990,940857,2526231,3005244,2502161,1682485,518537,547322,3357721,2278324]
+    y_Optimiz_model = [927841,1132591,1594793,2444270,2208879,2221450,1815590,2016409,2144680,2579327]
     #stationarity_Test(tourist_Number)
     #ACF_PACF(tourist_Number)
     #scatter_diagram(tourist_Number)
     #decide_PQ(y_Train,x_Train)  
     #最终确定ARIMA（0，0，1）
-
+    #pred()
+    R2(y_real,y_Origin_model)
+    R2(y_real,y_Optimiz_model)
