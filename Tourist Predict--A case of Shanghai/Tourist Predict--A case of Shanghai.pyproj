@@ -23,10 +23,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ARIMA.py" />
-    <Compile Include="Holt-Winters.py">
+    <Compile Include="LSTM.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LSTM.py">
+    <Compile Include="Xgboost.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -38,6 +38,7 @@
     <Folder Include="Pictures\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\origin_Data.csv" />
     <Content Include="Data\建模数据.xlsx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
