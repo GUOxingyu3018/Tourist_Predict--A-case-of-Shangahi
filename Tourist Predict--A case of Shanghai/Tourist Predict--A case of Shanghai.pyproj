@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7e832b89-321e-4153-aa33-9c56bc882e3b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ARIMA.py</StartupFile>
+    <StartupFile>Xgboost.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -38,8 +38,10 @@
     <Folder Include="Pictures\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\origin_Data.csv" />
-    <Content Include="Data\建模数据.xlsx" />
+    <Content Include="Data\Baidu_Index.csv" />
+    <Content Include="Data\SHLY_optize_Data.csv" />
+    <Content Include="Data\SHLY_origin_Data.csv" />
+    <Content Include="Data\SHLY.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
